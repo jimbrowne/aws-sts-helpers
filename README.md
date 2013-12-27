@@ -27,7 +27,7 @@ The tools assume you have a credential directory in ```{$HOME}/aws-creds```:
     personal.secret_key
 
 These are IAM role user keys that have no permissions on their own; rather they are 
-nly useful once one has authenticated with MFA.  This is enforced by including:
+only useful once one has authenticated with MFA.  This is enforced by including:
 
     "Condition":{
             "Null":{"aws:MultiFactorAuthAge":"false"}
@@ -56,69 +56,69 @@ Setting credentials
 
 * ec2 cli environment variables                                             
 
-    AWS_ACCESS_KEY
-    AWS_SECRET_KEY
-    AWS_DELEGATION_TOKEN
+        AWS_ACCESS_KEY
+        AWS_SECRET_KEY
+        AWS_DELEGATION_TOKEN
 
 * boto and aws-cli environment variables                                    
 
-    AWS_ACCESS_KEY_ID
-    AWS_SECRET_ACCESS_KEY
-    AWS_SECURITY_TOKEN (not yet suported for boto, see Requirements section)
+        AWS_ACCESS_KEY_ID
+        AWS_SECRET_ACCESS_KEY
+        AWS_SECURITY_TOKEN (not yet suported for boto, see Requirements section)
 
-*Note*: boto doesn't yet support AWS_SECURITY_TOKEN
+*Note*: boto doesn't yet support ```AWS_SECURITY_TOKEN```
 
 Ensure ```ec2switch.sh``` is in ```/etc/profile.d``` or:
 
-   source ec2switch.sh
+       source ec2switch.sh
 
 
 1. To start, no keys are set:
 
-    jbrowne@foo:~$ ec2now
-    No keys set
+        jbrowne@foo:~$ ec2now
+        No keys set
 
 2. Let's see what accounts are available:
 
-    jbrowne@foo:~$ ec2switch 
-    Possible accounts: work personal 
+        jbrowne@foo:~$ ec2switch 
+        Possible accounts: work personal 
 
 3. Let's switch to the IAM credentials for ```${USER}```, account personal
 
-    jbrowne@foo:~$ ec2switch personal
-    Cache invalid or not present for account personal
-    Set keys for personal AWS account
+        jbrowne@foo:~$ ec2switch personal
+        Cache invalid or not present for account personal
+        Set keys for personal AWS account
 
 4. We can see that the credentials are set:
 
-    jbrowne@foo:~$ ec2now
-    Keys set for personal AWS account
-    Region is us-east-1
+        jbrowne@foo:~$ ec2now
+        Keys set for personal AWS account
+        Region is us-east-1
 
 5. Let's escalate to MFA confirmed credentials:
 
-    jbrowne@foo:~$ ec2mfa
-    Enter token for user jbrowne: 281823
-    Cache is valid for account personal
-    Set keys for personal-MFA-STS AWS account
+        jbrowne@foo:~$ ec2mfa
+        Enter token for user jbrowne: 281823
+        Cache is valid for account personal
+        Set keys for personal-MFA-STS AWS account
 
 6. ```ec2now``` reflects the presence of MFA credentials:
 
-    jbrowne@foo:~$ ec2now
-    Keys set for personal-MFA-STS AWS account
-    Region is us-east-1
+        jbrowne@foo:~$ ec2now
+        Keys set for personal-MFA-STS AWS account
+        Region is us-east-1
 
 7. Switch to the work account, no cache present, so no MFA creds:
 
-    jbrowne@foo:~$ ec2switch work
-    Cache not present for account work
-    Set keys for work AWS account
+        jbrowne@foo:~$ ec2switch work
+        Cache not present for account work
+        Set keys for work AWS account
 
 8. Switch back to the personal account, MFA credentials are cached:
 
-    jbrowne@foo:~$ ec2switch personal
-    Cache is valid for account personal
-    Set keys for personal-MFA-STS AWS account
+        jbrowne@foo:~$ ec2switch personal
+        Cache is valid for account personal
+        Set keys for personal-MFA-STS AWS account
 
 Generating AssumeRole temporary credentials for scripts
 -------------------------------------------------------
@@ -128,7 +128,7 @@ credentials.  The default is to emit JSON (for use by other scripts), but it can
 emit copy/paste-able SHELL environment variable statements.
 
 *Note*: Currently --token has to be passed as boto does not (yet) support the
-AWS_SECURITY_TOKEN environment variable.
+```AWS_SECURITY_TOKEN``` environment variable.
 
 
     jbrowne@foo:~$ generate-sts-role-token --account work --role work-temporary-escalation --token ${AWS_SECURITY_TOKEN} 
