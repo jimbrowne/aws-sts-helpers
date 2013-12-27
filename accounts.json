@@ -1,0 +1,4 @@
+{
+    "personal": "arn:aws:iam::987654321012:",
+    "work":  "arn:aws:iam::012123456789:"
+}
