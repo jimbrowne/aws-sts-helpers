@@ -85,6 +85,16 @@ if __name__ == '__main__':
         help="Security token if using STS temporary credentials"
     )
     p.add_option(
+        "--access-key",
+        dest="accessKey",
+        help="Use this access key instead of the environment variable"
+    )
+    p.add_option(
+        "--secret-key",
+        dest="secretKey",
+        help="Use this secret key instead of the environment variable"
+    )
+    p.add_option(
         "--shell",
         action="store_true",
         dest="shell",
@@ -97,6 +107,10 @@ if __name__ == '__main__':
 
     if opts.role is None or opts.account is None:
         sys.stderr.write("Must specify --role and --account\n")
+        sys.exit(1)
+
+    if (opts.accessKey is None) != (opts.secretKey is None):
+        sys.stderr.write("Must specify both --access-key and --secret-key or neither\n")
         sys.exit(1)
 
     try:
@@ -118,7 +132,17 @@ if __name__ == '__main__':
         sys.stderr.write("--duration must be between 1 and 3600\n")
         sys.exit(1)
 
-    sts_conn = sts.connect_to_region(opts.region, security_token=opts.token)
+    if opts.accessKey is not None:
+        sts_conn = sts.connect_to_region(opts.region,
+                                         aws_access_key_id=opts.accessKey,
+                                         aws_secret_access_key=opts.secretKey,
+                                         security_token=opts.token)
+    elif opts.token is not None:
+        sts_conn = sts.connect_to_region(opts.region,
+                                         security_token=opts.token)
+    else:
+        sts_conn = sts.connect_to_region(opts.region)
+
     #arn = 'arn:aws:iam::472045619686:role/aau-alert-instance-role'
 
     assume = sts_conn.assume_role(role_arn=arn, role_session_name='foo')
