@@ -84,6 +84,13 @@ if __name__ == '__main__':
         dest="token",
         help="Security token if using STS temporary credentials"
     )
+    p.add_option(
+        "--shell",
+        action="store_true",
+        dest="shell",
+        default=False,
+        help="Emit copy/pastable environment variables rather than JSON"
+    )
 
     # Parse user input and sanity check
     (opts, args) = p.parse_args()
@@ -122,4 +129,17 @@ if __name__ == '__main__':
     for datum in ['access_key', 'secret_key', 'session_token', 'expiration']:
         result[datum] = getattr(cred, datum)
 
-    print(json.dumps(result, sort_keys=True, indent=4, separators=(',', ': ')))
+    if opts.shell:
+        print('export AWS_TOKEN_EXPIRATION=' + result['expiration'])
+        # ec2 cli environment variables
+        print('export AWS_ACCESS_KEY=' + result['access_key'])
+        print('export AWS_SECRET_KEY=' + result['secret_key'])
+        print('export AWS_DELEGATION_TOKEN=' + result['session_token'])
+        # boto and aws-cli environment variables
+        print('export AWS_ACCESS_KEY_ID=' + result['access_key'])
+        print('export AWS_SECRET_ACCESS_KEY=' + result['secret_key'])
+        # aws-cli specific environment variables
+        print('export AWS_SECURITY_TOKEN=' + result['session_token'])
+        print('export AWS_DEFAULT_REGION=' + opts.region)
+    else:
+        print(json.dumps(result, sort_keys=True, indent=4, separators=(',', ': ')))
