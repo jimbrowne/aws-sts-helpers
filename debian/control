@@ -1,4 +1,4 @@
-Source: amazon-sts-helpers
+Source: aws-sts-helpers
 Priority: optional
 Section: misc
 Maintainer: Jim Browne <jbrowne@jbrowne.com>

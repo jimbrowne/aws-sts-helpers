@@ -1,4 +1,4 @@
 generate-sts-role-token /usr/bin
 generate-sts-mfa-token /usr/bin
 ec2switch.sh /etc/profile.d
-accounts.json /etc/default/amazon-sts-helpers
+accounts.json /etc/default/aws-sts-helpers
