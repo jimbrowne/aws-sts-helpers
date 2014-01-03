@@ -77,7 +77,7 @@ if __name__ == '__main__':
         dest="duration",
         default=3600,
         type='int',
-        help="lifetime of token in minutes, 1-3600; default %default"
+        help="lifetime of token in seconds, 1-3600; default %default"
     )
     p.add_option(
         "--token",
@@ -142,8 +142,6 @@ if __name__ == '__main__':
                                          security_token=opts.token)
     else:
         sts_conn = sts.connect_to_region(opts.region)
-
-    #arn = 'arn:aws:iam::472045619686:role/aau-alert-instance-role'
 
     assume = sts_conn.assume_role(role_arn=arn, role_session_name='foo')
 
