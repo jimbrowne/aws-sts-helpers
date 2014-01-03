@@ -4,9 +4,9 @@ Section: misc
 Maintainer: Jim Browne <jbrowne@jbrowne.com>
 Build-Depends: debhelper (>= 8.0.0), python
 Standards-Version: 3.9.3
-Homepage: https://github.com/jimbrowne/amazon-sts-helpers
+Homepage: https://github.com/jimbrowne/aws-sts-helpers
 
-Package: amazon-sts-helpers
+Package: aws-sts-helpers
 Architecture: all
 Depends: ${misc:Depends}, python (>= 2.6), python-boto (>= 2.21.1)
 Description: Helper scripts for working with Amazon STS

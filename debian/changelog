@@ -1,5 +1,5 @@
-amazon-sts-helpers (0.1-1) unstable; urgency=low
+aws-sts-helpers (0.1-2) unstable; urgency=low
 
-  * Initial release
+  * Second release
 
- -- Jim Browne <jbrowne@jbrowne.com>  Mon, 23 Dec 2013 12:30:37 -0800
+ -- Jim Browne <jbrowne@jbrowne.com>  Thu, 02 Jan 2014 14:36:56 -0800
