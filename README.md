@@ -11,9 +11,7 @@ call.
 Requirements
 ------------
 
-[Boto](https://github.com/boto/boto) version 2.21.1 or greater
-
-Ideally boto with the following [patch](https://github.com/boto/boto/pull/1942) (not yet merged)
+[Boto](https://github.com/boto/boto) version 2.22.1 or greater
 
 Credential directory
 --------------------
