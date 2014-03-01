@@ -190,16 +190,21 @@ function ec2mfa()
 {
     if [[ -z "${MY_AWS_SET_FOR}" ]]; then
 	echo "No keys set"
-    elif [[ ${MY_AWS_SET_FOR} =~ MFA-STS ]]; then
-	echo "MFA STS token already cached"
     else
-	read -e -p "Enter token for user ${USER}: " token
-	# Create credentials good for two hours (7200 minutes)
-	generate-sts-mfa-token --account ${MY_AWS_SET_FOR} --user=${USER} --token=${token} --duration 7200 --cachefiles
-	if [ $? -ne 0 ]; then
-	    echo "Failed to set MFA token"
+	# run ec2switch to check cache expiration
+	ec2switch ${MY_AWS_SET_FOR%-MFA-STS}
+
+	if [[ ${MY_AWS_SET_FOR} =~ MFA-STS ]]; then
+	    echo "MFA STS token already cached"
 	else
-	    ec2switch ${MY_AWS_SET_FOR}
+	    read -e -p "Enter token for user ${USER}: " token
+	    # Create credentials good for two hours (7200 minutes)
+	    generate-sts-mfa-token --account ${MY_AWS_SET_FOR} --user=${USER} --token=${token} --duration 14400 --cachefiles
+	    if [ $? -ne 0 ]; then
+		echo "Failed to set MFA token"
+	    else
+		ec2switch ${MY_AWS_SET_FOR}
+	    fi
 	fi
     fi
 }

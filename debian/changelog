@@ -1,4 +1,11 @@
-aws-sts-helpers (0.1-2) unstable; urgency=low
+aws-sts-helpers (0.1-5) unstable; urgency=low
+
+  * Default expiration now four hours 
+  * ec2mfa checks cache status
+
+ -- Jim Browne <jbrowne@jbrowne.com>  Fri, 28 Feb 2014 23:58:07 -0800
+
+aws-sts-helpers (0.1-4) unstable; urgency=low
 
   * Second release
 
