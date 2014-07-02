@@ -21,6 +21,7 @@ import json
 import logging
 import optparse as OP
 import sys
+import os
 
 if __name__ == '__main__':
 
@@ -164,7 +165,7 @@ if __name__ == '__main__':
         print('export AWS_SECURITY_TOKEN=' + result['session_token'])
         print('export AWS_DEFAULT_REGION=' + opts.region)
     elif opts.cachefiles:
-        base = '/home/%s/aws-creds/.cache.%s.' % (opts.user, opts.account)
+        base = '%s/aws-creds/.cache.%s.' % (os.environ['HOME'], opts.account)
         files = [f for f in result if f != 'expiration']
         for f in files:
             with open(base + f, 'w') as fh:
