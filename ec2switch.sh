@@ -102,8 +102,7 @@ function ec2switch()
 	    | xargs -I{} echo -n "{} "
 	echo
     else
-	# This lowercasing ${1,,} means BASH 4.0 or greater is required
-	local account=${1,,}
+	local account=$(echo $1 | tr '[:upper:]' '[:lower:]')
 	local canary=${basedir}/${account}.access_key
 
 	if [[ ! -f "${canary}" ]]; then
