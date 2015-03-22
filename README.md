@@ -33,6 +33,10 @@ only useful once one has authenticated with MFA.  This is enforced by including:
 
 in the IAM permissions.
 
+The IAM user is assumed to be the same as the current unix user name.  However,
+you can create ```work.user``` or ```personal.user``` in the credential
+directory to specify a different IAM user.
+
 The credential directory is also used to cache credentials received from GetSessionToken.
 
 Account file

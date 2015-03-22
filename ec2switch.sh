@@ -120,7 +120,7 @@ function ec2switch()
 	    if [[ -n "${cached}" ]]; then
 		filebase=${filebase}.cache.
 	    fi
-	
+
 	    filebase=${filebase}${account}.
 
 	    local access
@@ -179,7 +179,8 @@ export -f ec2now
 ####
 # Attempt to acquire temporary STS credentials in the currently selected
 # AWS account, then set environment variables based on the newly cached
-# credentials
+# credentials.  The IAM user name may be specified in aws-creds/account.user
+# and will default to the current unix user name.
 #
 # Globals: none
 # Arguments: none
@@ -196,9 +197,13 @@ function ec2mfa()
 	if [[ ${MY_AWS_SET_FOR} =~ MFA-STS ]]; then
 	    echo "MFA STS token already cached"
 	else
-	    read -e -p "Enter token for user ${USER}: " token
+	    local iamuser=${USER}
+	    if [[ -f ${HOME}/aws-creds/${MY_AWS_SET_FOR}.user ]] ; then
+		iamuser=$(cat ${HOME}/aws-creds/${MY_AWS_SET_FOR}.user)
+	    fi
+	    read -e -p "Enter token for user ${iamuser}: " token
 	    # Create credentials good for two hours (7200 minutes)
-	    generate-sts-mfa-token --account ${MY_AWS_SET_FOR} --user=${USER} --token=${token} --duration 14400 --cachefiles
+	    generate-sts-mfa-token --account ${MY_AWS_SET_FOR} --user=${iamuser} --token=${token} --duration 14400 --cachefiles
 	    if [ $? -ne 0 ]; then
 		echo "Failed to set MFA token"
 	    else
