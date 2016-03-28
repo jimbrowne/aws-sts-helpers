@@ -66,9 +66,8 @@ Setting credentials
 
         AWS_ACCESS_KEY_ID
         AWS_SECRET_ACCESS_KEY
-        AWS_SECURITY_TOKEN (not yet suported for boto, see Requirements section)
-
-*Note*: boto doesn't yet support ```AWS_SECURITY_TOKEN```
+        AWS_SECURITY_TOKEN
+        AWS_SESSION_TOKEN
 
 Ensure ```ec2switch.sh``` is in ```/etc/profile.d``` or:
 
