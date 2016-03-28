@@ -1,4 +1,4 @@
-# Copyright 2013 42Lines, Inc.
+# Copyright 2013-6 42Lines, Inc.
 # Original Author: Jim Browne
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -37,9 +37,12 @@ function _ec2setvars()
 	export AWS_SECURITY_TOKEN=$4
 	# ec2 cli environment variable
 	export AWS_DELEGATION_TOKEN=$4
+	# It's the new style per AWS Security Blog 7/1/2014
+	export AWS_SESSION_TOKEN=$4
     else
 	unset AWS_SECURITY_TOKEN
 	unset AWS_DELEGATION_TOKEN
+	unset AWS_SESSION_TOKEN
     fi
 }
 
