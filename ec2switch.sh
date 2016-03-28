@@ -47,7 +47,7 @@ function _ec2setvars()
 }
 
 ####
-# Check if local files caching AWS STS credntials are present and not expired
+# Check if local files caching AWS STS credentials are present and not expired
 # Globals: none
 # Arguments: $1 basedir; $2 account
 # Returns: true if the cache is valid and current; false if not
