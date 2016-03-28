@@ -1,3 +1,10 @@
+aws-sts-helpers (0.1-6) unstable; urgency=low
+
+  * Roll in recent pull requests
+  * Support AWS_SESSION_TOKEN
+
+ -- Jim Browne <jbrowne@jbrowne.com>  Mon, 28 Mar 2016 16:54:09 -0700
+
 aws-sts-helpers (0.1-5) unstable; urgency=low
 
   * Default expiration now four hours 
